@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Interested Events
+{% endblock title %}
+
+{% block body %}
+<div id="updateBox" class="container">
+You have not Selected any events yet...<br>
+Head Over to our Trending Events section to get started
+</div>
+
+{% endblock body %}
+
+{% block js %}
+<script>
+    message = "<h1>The events you have selected are:</h1> <br>";
+    full_box = ''
+    l = JSON.parse(localStorage.getItem('cart'));
+    for (var i in l){
+        full_box = '<div id="'+i+'" class="container p-10 border"><h3>'+i+'</h3><button class="btn btn-primary m-5">Activate Notifs</button></div>'
+        message = message + '<br>' + full_box;
+        
+    }
+    document.getElementById('updateBox').innerHTML = message;
+
+
+    //Clear List button
+    //'<btn id ="clear-button" class="btn btn-primary">Clear List</button>'
+
+
+
+    console.log(message)
+
+    localStorage.clear();
+</script>
+{% endblock js %}

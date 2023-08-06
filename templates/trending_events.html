@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Trending Events{% endblock title %}
+
+{% block body %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show m-1" role="alert">
+  <strong>{{message}} </strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+
+{% for post in list_of_posts %}
+<div class="container p-5">
+    <div id="carouselExampleCaptions" class="carousel slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active my-2">
+            <img src="{{post.post_images.url}}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <strong><h1>{{post.title}} </h1></strong>
+              <h5>{{post.caption}}</h5>
+              <p>{{post.sdate}} - {{post.edate}}</p>
+              <p>Venue : {{post.college}}</p>
+            </div>
+          </div>
+          <!-- <div class="carousel-item">
+            <img src="static/desktop_background_image2.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Event title</h5>
+              <p>Caption Here</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="static/s5.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Event title</h5>
+              <p>Caption Here</p>
+            </div>
+          </div> -->
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <div class="container text-center">
+        <h4>{{post.description}}</h4>
+      </div>
+
+      <div class="container text-center">
+      <button id="{{post.title}}" class="btn btn-primary cart">Add to Interested Events</button>
+      </div>
+</div>
+{% endfor %}
+
+
+{% endblock body %}
+
+{% block js %}
+<script>
+  if (localStorage.getItem('cart') == null){
+    var cart = {}
+  }
+  else{
+    cart = JSON.parse(localStorage.getItem('cart'));
+  }
+
+
+  $('.cart').click(function(){
+
+    var idstr = this.id.toString();
+    console.log(idstr);
+
+    if (cart[idstr] != undefined){
+      cart[idstr] = cart[idstr] + 1;
+    }
+    else
+    {
+      cart[idstr] = 1;
+    }
+    
+    console.log(cart);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cart_items').innerHTML = Object.keys(cart).length;
+    //document.getElementById('updateBox').innerHTML = "Hey there";
+    
+  });
+
+</script>
+{% endblock js%}

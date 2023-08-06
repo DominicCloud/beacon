@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+
+
+{% block body %}
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-success" role="alert">
+  {{message}}
+</div>
+{% endfor %}
+{% endif %}
+
+<style>
+  #Welcome{
+    color:black;
+    background-image: url(static/home_bg_1.jpg);
+    background-size: cover;
+    font-family: Righteous;
+    margin: 1%;
+    text-align: center;
+    height: 70vh;
+    padding-bottom:20px;
+    border-style: inset;
+    border-color: darkslateblue;
+    border-width: 7px;
+}
+#Central{
+  position: relative;
+  top:5%
+}
+.paragraph{
+  position: relative;
+  left: 25vw;
+  width:40vw;
+  height:auto;
+  font-family:gloock;
+  font-size: 25px; 
+  
+}
+</style>
+
+  <div id="Welcome">
+    <div id="Central">
+        <h1>Hello There, {{request.user}}</h1>
+        <h1 style="font-size: 50px;"> Welcome to Beacon Inc.</h1>
+        <br>
+        <p class="paragraph">The place where your your endless event filtering stops and smooth event navigation begins. Check out trending events, upcoming events or more, right here!</p>
+    </div>
+</div>
+
+<div class="container only_for_testing" style="display:none">
+  {{start}}
+  {{list_of_posts}}
+</div>
+
+
+{% endblock body %}
+
